@@ -178,7 +178,10 @@ class CR {
 		this.players[this.colours[col]].played = true;
 		const out = [];
 		if (!this.board[x][y].value) this.board[x][y].col = col;
-		this.board[x][y].value++;
+		const forceCrit = Math.random();
+		Bot.AFD && forceCrit < 0.25
+			? (this.board[x][y].value = this.board[x][y].crit)
+			: this.board[x][y].value++;
 		out.push(this.display());
 		while (
 			this.willExplode() &&
